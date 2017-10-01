@@ -65,9 +65,13 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 I used a combination of color and gradient thresholds to generate a binary image.(`combined_thresh()`)
 
-The first binary contained values in both of x axis gradient and y axis gradient.
-The second binary contained values in both of magnitude of gradient and direction of gradient.
-The third binary contained values in the S channel of HLS color space which is in the range of theshold.
+The first binary contained values of x axis gradient.
+
+The second binary contained values in the S channel of HLS color space which is in the range of theshold.
+
+The third binary contained values in the L channel of LUV color space to find white color in the image.
+
+The fourth binary contained values in the b channel of Lab color space to find yellow color in the image.
 
 I combined these three binary images to get the final combined binary image.
 
@@ -135,4 +139,8 @@ Here's a [link to my video result](./project_video_output.mp4)
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 I try to optimize my result in changing the threshold of binary, the position of `src` and `dst` in `warp()`, and the porcess in fitting the lines. 
-I got a good enough result in most part in video, but in some place like concrete gound, shadow of tree, or a car too close the line will fail the pipeline.
+
+At first I also used both of magnitude of gradient and direction of gradient in threshold binary, but I found that didn't doing well in result.
+I removed it then used only gradient of x axis and more channel from other color space suggested by mentor.
+
+Then I got a good result in most part in video.
